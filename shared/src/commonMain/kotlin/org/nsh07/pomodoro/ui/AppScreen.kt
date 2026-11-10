@@ -74,6 +74,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.lerp
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.style.TextOverflow
@@ -218,7 +219,7 @@ fun AppScreen(
                                 expanded = true,
                                 scrollBehavior = toolbarScrollBehavior,
                                 colors = FloatingToolbarDefaults.vibrantFloatingToolbarColors(
-                                    toolbarContainerColor = primaryContainer,
+                                    toolbarContainerColor = primaryContainer.copy(alpha = 0.55f),
                                     toolbarContentColor = onPrimaryContainer
                                 ),
                                 modifier = Modifier
@@ -228,6 +229,7 @@ fun AppScreen(
                                                 + ScreenOffset
                                     )
                                     .zIndex(1f)
+                                    .liquidGlass(CircleShape)
                             ) {
                                 mainScreens.fastForEach { item ->
                                     val selected by remember { derivedStateOf { backStack.lastOrNull() == item.route } }
@@ -254,9 +256,9 @@ fun AppScreen(
                                                 { item.onNavigateHome() }
                                             },
                                             colors = ToggleButtonDefaults.colors(
-                                                containerColor = primaryContainer,
+                                                containerColor = Color.Transparent,
                                                 contentColor = onPrimaryContainer,
-                                                checkedContainerColor = primary,
+                                                checkedContainerColor = primary.copy(alpha = 0.75f),
                                                 checkedContentColor = onPrimary
                                             ),
                                             shapes = ToggleButtonShapes(
